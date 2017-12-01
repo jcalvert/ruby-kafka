@@ -118,6 +118,7 @@ module Kafka
           group_id: @group_id,
           session_timeout: @session_timeout,
           member_id: @member_id,
+          topics: @topics
         )
 
         Protocol.handle_error(response.error_code)
@@ -149,10 +150,10 @@ module Kafka
         @logger.info "Chosen as leader of group `#{@group_id}`"
 
         group_assignment = @assignment_strategy.assign(
-          members: @members.keys,
-          topics: @topics,
+          members: @members,
         )
       end
+
 
       @instrumenter.instrument("sync_group.consumer", group_id: @group_id) do
         response = coordinator.sync_group(

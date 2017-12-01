@@ -6,7 +6,6 @@ require "logger"
 require "rspec-benchmark"
 require "colored"
 require "securerandom"
-
 Dotenv.load
 
 LOGGER = Logger.new(ENV.key?("LOG_TO_STDERR") ? $stderr : "test-#{Time.now.to_i}.log")
